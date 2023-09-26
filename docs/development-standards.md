@@ -19,29 +19,29 @@ of guidance for those new to APIs along with quick lookup standards,
 which should assist agencies in achieving consistency and commonality in
 their API deliverables.
 
-1.  []{#_heading=h.36ei31r .anchor}**Scope**
+# Scope
 
 This document set aims to provide a set of high-level standards with
 design and implementation guidance, along with low-level API best
 practices to guide government agencies in their development of APIs.
 
--   **Part A -- API Concepts and Management 2021\
-    **Looks at the business context for APIs within government and
+-   **Part A - API Concepts and Management 2021:**
+    Looks at the business context for APIs within government and
     articulates the principles and considerations that could impact an
     agency when creating APIs. It looks at APIs in the context of their
     impact on the organisation as well as across government and public
     services through to commercial innovation. Version 1.0 published in
     2016 was called API Standard and Guidelines - Part A -- Business.
 
--   **Part B -- API Security 2021\
-    **Part B contains the API Security reference architecture and
+-   **Part B - API Security 2021:**
+    Part B contains the API Security reference architecture and
     technical details for implementing API Security. Version 1.0
     published in 2016 was called API Standard and Guidelines - Part A --
     Technical but has been split into a Part B - Security and Part C --
     Development for this version 2.0.
 
--   **Part C -- Development\
-    **Part C (This document) contains the technical details for API
+-   **Part C - Development:**
+    Part C (This document) contains the technical details for API
     Development, including general API implementation standards for API
     developers & consuming application developers. Version 1.0 published
     in 2016 was called API Standard and Guidelines - Part A -- Technical
@@ -63,7 +63,7 @@ for NZ Government.
 The document will use hypothetical or actual use cases with a government
 context to illustrate practical application of the concepts described.
 
-1.  []{#_heading=h.45jfvxd .anchor}**Target Audience**
+# Target Audience
 
 The target audience for this document -- Part C Development - is
 primarily solution designers and API developers within, or contracted
@@ -72,7 +72,7 @@ to, agencies and organisations within the public service.
 Additionally, compliance and assurance personnel may be interested, as
 well, in terms of assessing alignment with the standards and guidelines.
 
-2.  []{#_heading=h.2koq656 .anchor}**Definition of API**
+# Definition of API
 
 APIs and associated examples in this document are primarily ***Web
 APIs*** or APIs that are accessible via the http(s) protocol. There are
@@ -250,10 +250,7 @@ endlegend
 @enduml
 ```
 
-![](media/image7.png){width="5.901388888888889in"
-height="7.579166666666667in"}
-
-[]{#_heading=h.2ce457m .anchor}*Figure 48: Asynchronous Claims API*
+<p style="text-align: center;"><i>Asynchronous Claims API Sequence</i></p>
 
 The example above has 2 associated API specifications. The first is an
 OpenAPI specification that describes the "Create Claim" and "Get Claim"
@@ -1219,94 +1216,57 @@ line with the \"Design for the Consumer\" principle in Part A, section
 The response format required from a GET request must be indicated by the
 consumer in their request using the Accept header. For example:
 
-> #GET a resource and specify the response type
->
-> https://api.example.govt.nz/crown-property/0219c539-5885-4ab6-a55b-b0de7537c426
->
-> Accept: application/xml
->
-> #Response
->
-> \<?xml version=\"1.0\" encoding=\"UTF-8\" ?\>
->
-> \<CrownProperyResponseBody
-> xmlns=\"https://api.example.com/CrownProperyResponse\"\>
->
-> \<id\>0219c539-5885-4ab6-a55b-b0de7537c426\</id\>
->
-> \<category\>commercial\</category\>
->
-> \<location\>
->
-> \<streetName\>Northbound Boulevard\</streetName\>
->
-> \<town\>Wellington\</town\>
->
-> \<postalCode\>6011\</postalCode\>
->
-> \<countryCode\>NZ\</countryCode\>
->
-> \</location\>
->
-> \<pricing\>
->
-> \<rentFrequency\>annual\</rentFrequency\>
->
-> \<currencyCode\>NZD\</currencyCode\>
->
-> \<pricePerUnitArea\>
->
-> \<price\>1000\</price\>
->
-> \<units\>squareMetre\</units\>
->
-> \</pricePerUnitArea\>
->
-> \<transactionType\>rent\</transactionType\>
->
-> \</pricing\>
->
-> \<property_type\>office\</property_type\>
->
-> \<areas\>
->
-> \<internal\>
->
-> \<minimum\>
->
-> \<value\>183\</value\>
->
-> \<units\>squareMetre\</units\>
->
-> \</minimum\>
->
-> \<maximum\>
->
-> \<value\>188\</value\>
->
-> \<units\>squareMetre\</units\>
->
-> \</maximum\>
->
-> \</internal\>
->
-> \</areas\>
->
-> \<detailedDescription\>
->
-> \<text\>Free text describing the property in some way.\</text\>
->
-> \</detailedDescription\>
->
-> \<tenancy\>
->
-> \<life_cycle_status\>tennanted\</life_cycle_status\>
->
-> \<nextReviewDate\>2016-06-01\</nextReviewDate\>
->
-> \</tenancy\>
->
-> \</CrownProperyResponseBody\>
+```
+#GET a resource and specify the response type
+https://api.example.govt.nz/crown-property/0219c539-5885-4ab6-a55b-b0de7537c426
+Accept: application/xml
+``````
+
+```xml
+#Response
+<?xml version="1.0" encoding="UTF-8" ?>
+<CrownProperyResponseBody xmlns="https://api.example.com/CrownProperyResponse"> 
+	<id>0219c539-5885-4ab6-a55b-b0de7537c426</id>
+	<category>commercial</category>
+	<location>
+		<streetName>Northbound Boulevard</streetName>
+		<town>Wellington</town>
+		<postalCode>6011</postalCode>
+		<countryCode>NZ</countryCode>
+	</location>
+	<pricing>
+		<rentFrequency>annual</rentFrequency>
+		<currencyCode>NZD</currencyCode>
+		<pricePerUnitArea>
+			<price>1000</price>
+			<units>squareMetre</units>
+		</pricePerUnitArea>
+		<transactionType>rent</transactionType>
+	</pricing>
+	<property_type>office</property_type>
+	<areas>
+		<internal>
+			<minimum>
+				<value>183</value>
+				<units>squareMetre</units>
+			</minimum>
+			<maximum>
+				<value>188</value>
+				<units>squareMetre</units>
+			</maximum>
+		</internal>
+	</areas>
+	<detailedDescription>
+		<text>Free text describing the property in some way.</text>
+	</detailedDescription>
+	<tenancy>
+		<life_cycle_status>tennanted</life_cycle_status>
+		<nextReviewDate>2016-06-01</nextReviewDate>
+	</tenancy>
+</CrownProperyResponseBody>
+
+
+```
 
 The request format for a request containing a request body (POST, PUT,
 PATCH) must be supplied in the Content-Type request header. For example:
