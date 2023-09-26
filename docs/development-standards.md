@@ -173,85 +173,82 @@ There are several different types of API and the type you choose may
 depend on the technical use cases that you apply to both consumption and
 provision of your API.
 
-+------------+---------------------------------+----------------------+
-| API Type   | Description                     | Usage                |
-+============+=================================+======================+
-| REST       | Representational State Transfer | Creating distributed |
-|            | (REST) is the most common and   | system where a set   |
-|            | well understood API type. REST  | of API resources are |
-|            | should be considered an         | well defined. If     |
-|            | architectural style for         | medium latency       |
-|            | developing distributed          | resource creation or |
-|            | hypermedia systems. There is a  | modification (POST,  |
-|            | wealth of information and       | PUT, DELETE) is      |
-|            | tooling to support the          | required then        |
-|            | definition and creation of REST | typically a REST API |
-|            | APIs. Typically, a REST API     | is a better fit.     |
-|            | will have a well-defined and    | Typically used for   |
-|            | strongly typed schema           | synchronous          |
-|            | definition (OpenAPI) where      | interactions.        |
-|            | strict compliance can be        |                      |
-|            | achieved.                       |                      |
-+------------+---------------------------------+----------------------+
-| GraphQL    | GraphQL is an open source query | An API that has a    |
-|            | and manipulation language       | widely distributed   |
-|            | developed by Facebook primarily | client set with a    |
-|            | designed to empower API         | variety of data      |
-|            | consumers to consume only the   | requirements.        |
-|            | data that they require. A       | Particularly well    |
-|            | common criticism of REST is     | suited to high read  |
-|            | that only the entire resource   | (GET) clients        |
-|            | is available for consumption,   |                      |
-|            | sometimes referred to as "over  |                      |
-|            | fetching", however with GraphQL |                      |
-|            | the client decides the data     |                      |
-|            | that it requires. GraphQL also  |                      |
-|            | has a strongly typed schema     |                      |
-|            | (GraphQL Schema Definition      |                      |
-|            | Language -- SDL).               |                      |
-+------------+---------------------------------+----------------------+
-| As         | AsyncAPI is an open source      | Creating distributed |
-| ynchronous | initiative to create an         | systems where a set  |
-| APIs       | event-driven and asynchronous   | of API resources are |
-|            | API standardization and         | well defined.        |
-|            | development tooling.            | Typically used for   |
-|            | The AsyncAPI specification,     | asynchronous         |
-|            | inspired by the OpenAPI         | interactions and     |
-|            | specification, describes and    | event driven         |
-|            | documents event-driven APIs in  | architectures. Also, |
-|            | a machine-readable format.      | useful when          |
-|            |                                 | developing APIs that |
-|            |                                 | front workflows or   |
-|            |                                 | long running         |
-|            |                                 | orchestrations.      |
-+------------+---------------------------------+----------------------+
-| gRPC       | gRPC is a modern open source    | Creating distributed |
-|            | high performance Remote         | systems that require |
-|            | Procedure Call (RPC) framework  | highly performant    |
-|            | that can run in any             | and scalable API\'s. |
-|            | environment.                    | gRPC makes use of    |
-|            |                                 | binary data rather   |
-|            | In gRPC, a client application   | than just text which |
-|            | can directly call a method on a | makes the            |
-|            | server application on a         | communication more   |
-|            | different machine as if it were | compact and more     |
-|            | a local object, making it       | efficient.           |
-|            | easier for you to create        |                      |
-|            | distributed applications and    |                      |
-|            | services. This is enabled by a  |                      |
-|            | formal Interface Definition     |                      |
-|            | Language (IDL). gRPC utilizes   |                      |
-|            | Protocol Buffers by default,    |                      |
-|            | you can make it work with other |                      |
-|            | data formats, such as JSON.     |                      |
-+------------+---------------------------------+----------------------+
 
-[]{#_heading=h.1d96cc0 .anchor}*Table 19: Types of API*
+|API Type|Description|Usage|
+|:----|:----|:----|
+|**REST**|Representational State Transfer (REST) is the most common and well understood API type. REST should be considered an architectural style for developing distributed hypermedia systems. There is a wealth of information and tooling to support the definition and creation of REST APIs. Typically, a REST API will have a well-defined and strongly typed schema definition (OpenAPI) where strict compliance can be achieved.|Creating distributed system where a set of API resources are well defined. If medium latency resource creation or modification (POST, PUT, DELETE) is required then typically a REST API is a better fit. Typically used for synchronous interactions.|
+| | | |
+|**GraphQL**|GraphQL is an open source query and manipulation language developed by Facebook primarily designed to empower API consumers to consume only the data that they require. A common criticism of REST is that only the entire resource is available for consumption, sometimes referred to as “over fetching”, however with GraphQL the client decides the data that it requires. GraphQL also has a strongly typed schema (GraphQL Schema Definition Language – SDL).|An API that has a widely distributed client set with a variety of data requirements. Particularly well suited to high read (GET) clients|
+| | | |
+**Asynchronous APIs**|AsyncAPI is an open source initiative to create an event-driven and asynchronous API standardization and development tooling. The AsyncAPI specification, inspired by the OpenAPI specification, describes and documents event-driven APIs in a machine-readable format.|Creating distributed systems where a set of API resources are well defined. Typically used for asynchronous interactions and event driven architectures. Also, useful when developing APIs that front workflows or long running orchestrations.|
+| | | |
+|**gRPC**|gRPC is a modern open source high performance Remote Procedure Call (RPC) framework that can run in any environment. |Creating distributed systems that require highly performant and scalable API's. gRPC makes use of binary data rather than just text which makes the communication more compact and more efficient. |In gRPC, a client application can directly call a method on a server application on a different machine as if it were a local object, making it easier for you to create distributed applications and services. This is enabled by a formal Interface Definition Language (IDL). gRPC utilizes Protocol Buffers by default, you can make it work with other data formats, such as JSON. |
 
 Example Technical Use Case Synchronous/Asynchronous API
 
 The illustrative example below demonstrates a combination of a
 synchronous API and an asynchronous API.
+
+```plantuml
+@startuml
+
+title "Example Use Case - Synchronous/Asyncronous Claims API"
+
+actor "Customer" as C
+actor "Service\nProvider" as P
+entity "Service Provider\nSystem" as SPS
+entity "Notification Endpoint" as NE
+control "Claims API" as CA
+entity "Agency Core System" as ACS
+!pragma teoz true
+==Register==
+SPS -[#Pink]> CA : POST /register
+note right of SPS
+    This call is to enable the service provider
+    to register their notification endpoint. Note
+    that this is illustrative only. In reality most
+    consumers will register with an agency using a
+    developer portal or equivalent and create client
+    application credentials with registered notification
+    endpoint(s).
+end note
+
+CA -[#Pink]> SPS : Return registraiotn details
+==Create Claim==
+{start} C -[#Blue]> P : Access funded product\nor service
+P -[#Blue]> SPS : Create claim details
+SPS -[#Green]> CA : Register claim
+CA -[#Pink]> ACS : Create claim
+ACS -[#Pink]> ACS : Create claim and\nassign to workflow
+ACS -[#Pink]> CA : Return claim identifier and status
+CA -[#Green]> SPS : Return claim id and status
+SPS -[#Blue]> P
+{end} P -[#Blue]> C
+{start} <-> {end} : Synchronous
+==Subscribe to events==
+SPS -[#Green]> CA : SUB claims/{claimId}
+==Receive Updates==
+{asstart} C -[hidden]-> P
+ACS -[#Pink]> ACS : Workflow udate
+ACS -[#Green]x CA : PUB claims/{claimId}
+CA -[#Green]> SPS : Receive subscription message
+alt Web Hook
+    CA -[#Green]> NE : Send hook notification
+    NE -[#Pink]> SPS : Forward notification
+end
+SPS -[#Pink]> P : Notify
+{asend} P -[#Blue]> C : Notify
+{asstart} <-> {asend} : Asynchronous
+
+legend
+    |= Color |= Type |= Description |
+    | <size:11><back:#Green>           </back></size>|    <&arrow-right> | API Interaction |
+    | <size:11><back:#Blue>           </back></size>|    <&arrow-right> | Human Interaction |
+    | <size:11><back:#Pink>           </back></size>|    <&arrow-right> | System Interaction |
+endlegend
+
+@enduml
+```
 
 ![](media/image7.png){width="5.901388888888889in"
 height="7.579166666666667in"}
