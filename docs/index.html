@@ -14,10 +14,21 @@
   <script>
     window.$docsify = {
       name: '',
-      repo: ''
+      repo: '',
+      plantuml: {
+    skin: 'classic',
+  },
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//unpkg.com/docsify-plantuml/dist/docsify-plantuml.js"></script>
+  <!-- docsify -->
+  <script>
+    window.$docsify = {
+      plantuml: {
+        renderSvgAsObject: true
+      },
+    }
 </body>
 </html>
