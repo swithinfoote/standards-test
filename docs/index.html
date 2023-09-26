@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <link rel="stylesheet" href="https://www.tewhatuora.govt.nz/dist/index.css">
 </head>
+
 <body>
   <div id="app"></div>
   <script>
@@ -16,19 +18,31 @@
       name: '',
       repo: '',
       plantuml: {
-    skin: 'classic',
-  },
-    }
+        skin: 'classic',
+      },
+      loadSidebar: true,
+      subMaxLevel: 3,
+      name: '',
+      repo: '',
+
+      search: 'auto', // default
+
+      // complete configuration parameters
+      search: {
+        maxAge: 86400000, // Expiration time, the default one day
+        paths: 'auto',
+        placeholder: 'Type to search',
+        noData: 'No Results!',
+        // Headline depth, 1 - 6
+        depth: 6,
+        hideOtherSidebarContent: false, // whether or not to hide other sidebar content
+     }
+    };
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="//unpkg.com/docsify-plantuml/dist/docsify-plantuml.js"></script>
-  <!-- docsify -->
-  <script>
-    window.$docsify = {
-      plantuml: {
-        renderSvgAsObject: true
-      },
-    }
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 </body>
+
 </html>
